@@ -88,6 +88,7 @@ extension AlertIcon {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 public extension ProgressIndicator {
 
 	class var animationType: AnimationType {
@@ -135,7 +136,7 @@ public extension ProgressIndicator {
 		set { shared.imageError = newValue }
 	}
 }
-
+*/
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 public extension ProgressIndicator {
 
@@ -248,17 +249,17 @@ public class ProgressIndicator: UIView {
 
 	private var timer: Timer?
 
-	private var animationType	= AnimationType.systemActivityIndicator
+    public var animationType	= AnimationType.systemActivityIndicator
 
-	private var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-	private var colorHUD		= UIColor.systemGray
-	private var colorStatus		= UIColor.label
-	private var colorAnimation	= UIColor.lightGray
-	private var colorProgress	= UIColor.lightGray
+    public var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+    public var colorHUD		= UIColor.systemGray
+    public var colorStatus		= UIColor.label
+    public var colorAnimation	= UIColor.lightGray
+    public var colorProgress	= UIColor.lightGray
 
-	private var fontStatus		= UIFont.boldSystemFont(ofSize: 24)
-	private var imageSuccess	= UIImage.checkmark.withTintColor(UIColor.systemGreen, renderingMode: .alwaysOriginal)
-	private var imageError		= UIImage.remove.withTintColor(UIColor.systemRed, renderingMode: .alwaysOriginal)
+    public var fontStatus		= UIFont.boldSystemFont(ofSize: 24)
+    public var imageSuccess	= UIImage.checkmark.withTintColor(UIColor.systemGreen, renderingMode: .alwaysOriginal)
+    public var imageError		= UIImage.remove.withTintColor(UIColor.systemRed, renderingMode: .alwaysOriginal)
 
 	private let keyboardWillShow	= UIResponder.keyboardWillShowNotification
 	private let keyboardWillHide	= UIResponder.keyboardWillHideNotification
@@ -301,6 +302,7 @@ public class ProgressIndicator: UIView {
 //		setupNotifications()
 //		setupBackground(interaction)
 //		setupToolbar()
+        self.alpha = 0
 		setupLabel(status)
 
 		if (progress == nil) && (animatedIcon == nil) && (staticImage == nil) { setupAnimation()				}
@@ -349,6 +351,7 @@ public class ProgressIndicator: UIView {
 	}
  */
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+    /*
 	private func setupToolbar() {
 
 		if (toolbarHUD == nil) {
@@ -357,12 +360,12 @@ public class ProgressIndicator: UIView {
 			toolbarHUD?.clipsToBounds = true
 			toolbarHUD?.layer.cornerRadius = 10
 			toolbarHUD?.layer.masksToBounds = true
-			viewBackground?.addSubview(toolbarHUD!)
+			self.addSubview(toolbarHUD!)
 		}
 
 		toolbarHUD?.backgroundColor = colorHUD
 	}
-
+    */
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupLabel(_ status: String?) {
 
@@ -389,11 +392,11 @@ public class ProgressIndicator: UIView {
 
 		if (viewProgress == nil) {
 			viewProgress = ProgressView(colorProgress)
-			viewProgress?.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+            viewProgress?.frame = self.bounds
 		}
 
 		if (viewProgress?.superview == nil) {
-			toolbarHUD?.addSubview(viewProgress!)
+			self.addSubview(viewProgress!)
 		}
 
 		viewProgress?.setProgress(progress!)
@@ -407,11 +410,11 @@ public class ProgressIndicator: UIView {
 		staticImageView?.removeFromSuperview()
 
 		if (viewAnimation == nil) {
-			viewAnimation = UIView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+            viewAnimation = UIView(frame: self.bounds)
 		}
 
 		if (viewAnimation?.superview == nil) {
-			toolbarHUD?.addSubview(viewAnimation!)
+			self.addSubview(viewAnimation!)
 		}
 
 		viewAnimation?.subviews.forEach {
@@ -443,11 +446,11 @@ public class ProgressIndicator: UIView {
 		staticImageView?.removeFromSuperview()
 
 		if (viewAnimatedIcon == nil) {
-			viewAnimatedIcon = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+            viewAnimatedIcon = UIView(frame: self.bounds)
 		}
 
 		if (viewAnimatedIcon?.superview == nil) {
-			toolbarHUD?.addSubview(viewAnimatedIcon!)
+			self.addSubview(viewAnimatedIcon!)
 		}
 
 		viewAnimatedIcon?.layer.sublayers?.forEach {
@@ -467,7 +470,7 @@ public class ProgressIndicator: UIView {
 		viewAnimatedIcon?.removeFromSuperview()
 
 		if (staticImageView == nil) {
-			staticImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+            staticImageView = UIImageView(frame: self.bounds)
 		}
 
 		if (staticImageView?.superview == nil) {
@@ -482,8 +485,8 @@ public class ProgressIndicator: UIView {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupSize() {
 
-		var width: CGFloat = 120
-		var height: CGFloat = 120
+        var width: CGFloat = self.frame.width
+        var height: CGFloat = self.frame.height
 
 		if let text = labelStatus?.text {
 			let sizeMax = CGSize(width: 250, height: 250)
@@ -1243,7 +1246,7 @@ private class ProgressView: UIView {
 
 		layerProgress.path = pathProgress.cgPath
 		layerProgress.fillColor = UIColor.clear.cgColor
-		layerProgress.lineWidth = 7
+		layerProgress.lineWidth = 3
 		layerProgress.strokeColor = color.cgColor
 		layerProgress.strokeEnd = 0
 
