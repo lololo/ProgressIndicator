@@ -1234,7 +1234,7 @@ private class ProgressView: UIView {
 
 		let center = CGPoint(x: width/2, y: height/2)
 		let radiusCircle = width / 2
-		let radiusProgress = width / 2 - 5
+		let radiusProgress = width / 2 - 2
 
 		let pathCircle = UIBezierPath(arcCenter: center, radius: radiusCircle, startAngle: -0.5 * .pi, endAngle: 1.5 * .pi, clockwise: true)
 		let pathProgress = UIBezierPath(arcCenter: center, radius: radiusProgress, startAngle: -0.5 * .pi, endAngle: 1.5 * .pi, clockwise: true)
@@ -1256,6 +1256,7 @@ private class ProgressView: UIView {
 		labelPercentage.frame = self.bounds
 		labelPercentage.textColor = color
 		labelPercentage.textAlignment = .center
+        labelPercentage.alpha = 0
 		addSubview(labelPercentage)
 	}
 
